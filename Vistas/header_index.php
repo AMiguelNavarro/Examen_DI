@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'Conexion/conexion.php';
 ?>
 <!doctype html>

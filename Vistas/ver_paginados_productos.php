@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 include 'header_vistas.php';
 
 // Numero de resultados a mostrar por página
@@ -63,7 +61,9 @@ while ($fila = $resultado->fetchAll(PDO::FETCH_ASSOC)) {
         echo "<td>" ,$producto['Precio'], "</td>";
         echo "<td>" ,$producto['idCategoria'], "</td>";
 
-        echo "<td><a href='editar_productos.php?id=", $producto['idProducto'],"'>Editar</a></td>";
+        if (isset($_SESSION['usuario'])){
+            echo "<td><a href='editar_productos.php?id=", $producto['idProducto'],"'>Editar</a></td>";
+        }
 
         echo "</tr>";
     }
@@ -71,5 +71,9 @@ while ($fila = $resultado->fetchAll(PDO::FETCH_ASSOC)) {
 
 echo "</table>";
 
-echo "<p><a href='#'>Añadir un nuevo registro</a></p>";
+if (isset($_SESSION['usuario'])){
+    echo "<p><a href='insertar_producto.php'>Añadir Registro</a></p>";
+} else {
+    echo "<p><a href='inicio_sesion.php'>Inicia sesión</a> para añadir un nuevo producto</p>";
+}
 

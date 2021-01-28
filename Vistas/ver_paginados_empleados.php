@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 include 'header_vistas.php';
 
 // Numero de resultados a mostrar por página
@@ -62,7 +60,9 @@ while ($fila = $resultado->fetchAll(PDO::FETCH_ASSOC)) {
         echo "<td>" ,$empleado['nombre'], "</td>";
         echo "<td>" ,$empleado['usuario'], "</td>";
 
-        echo "<td><a href='editar_empleados.php?id=", $empleado['idEmpleado'],"'>Editar</a></td>";
+        if (isset($_SESSION['usuario'])){
+            echo "<td><a href='editar_empleados.php?id=", $empleado['idEmpleado'],"'>Editar</a></td>";
+        }
 
         echo "</tr>";
     }
@@ -70,5 +70,9 @@ while ($fila = $resultado->fetchAll(PDO::FETCH_ASSOC)) {
 
 echo "</table>";
 
-echo "<p><a href='#'>Añadir un nuevo registro</a></p>";
+if (isset($_SESSION['usuario'])){
+    echo "<p><a href='insertar_empleado.php'>Añadir Registro</a></p>";
+} else{
+    echo "<p><a href='inicio_sesion.php'>Inicia sesión</a> para añadir un nuevo empleado</p>";
+}
 

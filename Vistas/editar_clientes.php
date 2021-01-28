@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 include 'header_vistas.php';
 
 

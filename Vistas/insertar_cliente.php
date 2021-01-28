@@ -1,8 +1,10 @@
 <?php
 
-session_start();
-
 include 'header_vistas.php';
+
+if (!isset($_SESSION['usuario'])){
+    header("Location: ../index.php");
+}
 
 /* SCRIPT PARA MOSTRAR UN FORMULARIO PARA EDITAR EL REGISTRO ELEGIDO. POR ID */
 function renderForm($nombre, $apellido, $codPostal, $error){

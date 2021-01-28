@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 include 'header_vistas.php';
 
 try {
@@ -26,7 +24,10 @@ try {
         echo "<td>" ,$cliente['apellidos'], "</td>";
         echo "<td>" ,$cliente['codPostal'], "</td>";
 
-        echo "<td><a href='editar_clientes.php?id=", $cliente['idCliente'],"'>Editar</a></td>";
+        if (isset($_SESSION['usuario'])) {
+            echo "<td><a href='editar_clientes.php?id=", $cliente['idCliente'],"'>Editar</a></td>";
+        }
+
 
         echo "</tr>";
     }
@@ -37,7 +38,12 @@ try {
     echo "Error al mostrar los datos ", $pdoe->getMessage();
 }
 
-echo "<p><a href='#'>Inicia sesión</a> para añadir un nuevo cliente</p>";
-echo "<p><a href='insertar_cliente.php'>Añadir Registro</a></p>";
+if (isset($_SESSION['usuario'])) {
+    echo "<p><a href='insertar_cliente.php'>Añadir Registro</a></p>";
+} else {
+    echo "<p><a href='inicio_sesion.php'>Inicia sesión</a> para añadir un nuevo cliente</p>";
+}
+
+
 
 include 'footer.php';
